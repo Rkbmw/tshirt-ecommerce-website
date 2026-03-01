@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FiShoppingCart, FiHeart, FiStar, FiTrendingUp, FiPackage } from 'react-icons/fi';
+import { FiShoppingCart, FiHeart, FiSearch, FiFilter, FiGrid, FiList, FiChevronRight, FiStar, FiTruck, FiShield, FiRefreshCw, FiTrendingUp, FiPackage } from 'react-icons/fi';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
+import { mockProducts } from '../mockData';
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -35,7 +36,20 @@ const Home = () => {
       setFreshPicks(fresh);
       
     } catch (error) {
-      console.error('Error fetching products:', error);
+      console.log('Backend not available, using mock data');
+      // Use mock data when backend is not available
+      const data = mockProducts;
+      setProducts(data);
+      
+      // Get boys products
+      const boys = data.filter(product => product.category.toLowerCase() === 'boys');
+      setBoysProducts(boys.slice(0, 4)); // Show first 4 boys products
+      
+      // Get fresh picks (latest products)
+      const fresh = data
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        .slice(0, 8); // Show 8 latest products
+      setFreshPicks(fresh);
     } finally {
       setLoading(false);
     }
