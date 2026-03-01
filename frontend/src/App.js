@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 import Navbar from './components/Navbar';
-import Home from './pages/Home';
+import HomeStandalone from './pages/HomeStandalone';
 import Products from './pages/Products';
 import Search from './pages/Search';
 import ProductDetails from './pages/ProductDetails';
@@ -25,7 +25,7 @@ function App() {
             <Navbar />
             <main>
               <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<HomeStandalone />} />
                 <Route path="/products" element={<Products />} />
                 <Route path="/search" element={<Search />} />
                 <Route path="/product/:id" element={<ProductDetails />} />
